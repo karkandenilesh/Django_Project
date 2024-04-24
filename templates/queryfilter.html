@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <style>
+        .total-count-container {
+            font-size: 18px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        #total-count {
+            font-weight: bold;
+            color: #007bff;
+            /* Change color as needed */
+        }
+
+        .close-button {
+            background-color: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .close-button:hover {
+            color: #555;
+        }
+
+
+        #filter-form {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #filter-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        #filter-form input[type="text"],
+        #filter-form input[type="number"] {
+            width: 250px;
+            /* Adjust for padding and border */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #filter-form .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #filter-form .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive styling */
+        /* @media (max-width: 768px) {
+            #filter-form {
+                max-width: 100%;
+            }
+        } */
+
+        /* Style for two input fields in a single row */
+        #filter-form .input-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <p>Total Count: <span id="total-count"></span></p> -->
+
+    <p class="total-count-container">
+        <span id="total-count">0</span> records found for the query.
+    </p>
+
+    <!-- Form for filtering -->
+    <form id="filter-form">
+        <div class="input-group">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+
+            <div>
+                <label for="domain">Domain:</label>
+                <input type="text" id="domain" name="domain">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div>
+                <label for="industry">Industry:</label>
+                <input type="text" id="industry" name="industry">
+            </div>
+
+            <div>
+                <label for="year_founded">Year Founded:</label>
+                <input type="number" id="year_founded" name="year_founded">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div>
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <button type="button" class="btn btn-danger" onclick="resetFilter()">Reset</button>
+        </div>
+    </form>
+
+    <script>
+        // Function to fetch data from the API endpoint
+        function fetchData() {
+            const form = document.getElementById('filter-form');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent form submission
+                const formData = new FormData(form);
+                const queryParams = new URLSearchParams(formData).toString();
+
+                fetch(`/api/filter-organizations/?${queryParams}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Render organizations data directly without using a separate div
+                        const total_count = document.getElementById('total-count');
+                        total_count.innerText = data.filtered_count;
+
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            });
+        }
+
+        // Call fetchData function when the page loads
+        fetchData();
+
+
+        function resetFilter() {
+            // Get all input fields
+            const inputs = document.querySelectorAll('#filter-form input');
+
+            // Clear each input field
+            inputs.forEach(input => {
+                input.value = '';
+            });
+        }
+    </script>
+</body>
+
+{% endblock %}

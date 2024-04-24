@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            height: 300px;
+            width: 400px;
+            background-color: skyblue;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .form-floating label {
+            color: #555;
+        }
+
+        .form-floating input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-floating .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 0;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-floating .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .secondary-action {
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .secondary-action:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <form method="post" class="login" id="signup_form" action="{% url 'account_login' %}">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+            </div>
+
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="form-floating form-group">
+                        <label for="{{form.login.id_for_label}}">UserName</label>
+                        {{ form.login }}
+                        {{ form.login.errors|safe }}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating form-group my-3">
+                        <label for="{{form.password.id_for_label}}">Password </label>
+                        {{ form.password }}
+                        {{ form.password.errors|safe }}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <label for="{{form.remember.id_for_label}}" class="form-check-label">Remember me</label>
+                        {{ form.remember }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button class="btn btn-primary w-100 py-3 bg-accent" type="submit">Sign in</button>
+                    <a class="button secondaryAction text-accent" href="{% url 'account_reset_password' %}">Forgot
+                        Password?</a>
+                </div>
+                {{ form.non_field_errors | safe }}
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

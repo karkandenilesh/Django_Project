@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<h1>Organization List</h1>
+<ul>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Year Founded</th>
+                <th scope="col">Industry</th>
+                <th scope="col">Size range</th>
+                <th scope="col">Locality</th>
+                <th scope="col">Country</th>
+                <th scope="col">Linkedin URL</th>
+                <th scope="col">Current employee estimate</th>
+                <th scope="col">Total employee estimate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for organization in organizations %}
+            <tr>
+                <th scope="row">{{ organization.id }}</th>
+                <td>{{ organization.name }}</td>
+                <td>{{ organization.domain }}</td>
+                <td>{{ organization.year_founded }}</td>
+                <td>{{ organization.industry }}</td>
+                <td>{{ organization.size_range }}</td>
+                <td>{{ organization.locality }}</td>
+                <td>{{ organization.country }}</td>
+                <td>{{ organization.linkedin_url }}</td>
+                <td>{{ organization.current_employee_estimate }}</td>
+                <td>{{ organization.total_employee_estimate }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</ul>
+
+{% endblock %}
