@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d7g-j(%!#mqbqjkk(2bx&pm0=nw$p!@&yx7l(_dfyc)g7dl%1o'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -42,18 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'organization',
 
-    # 'django.contrib.sites',
-
     'allauth',
     'allauth.account',
-
-
-    # Optional -- requires install using `django-allauth[socialacocunt]`.
     'allauth.socialaccount',
 ]
 
 
 SITE_ID = 1
+
+LOGIN_URL = 'accounts/login/'
 
 LOGIN_REDIRECT_URL = 'upload'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
@@ -106,11 +104,11 @@ WSGI_APPLICATION = 'catalyst_count.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'catalyst',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',  # Or your MySQL host IP
-        'PORT': '3306',  # Or your MySQL port
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),  # Or your MySQL host IP
+        'PORT': config('DB_PORT'),  # Or your MySQL port
     }
 }
 
@@ -166,16 +164,3 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         # For each OAuth based provider, either add a ``SocialApp``
-#         # (``socialaccount`` app) containing the required client
-#         # credentials, or list them here:
-#         'APP': {
-#             'client_id': '123',
-#             'secret': '456',
-#             'key': ''
-#         }
-#     }
-# }
