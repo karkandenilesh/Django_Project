@@ -11,7 +11,7 @@ Secure authentication system using Django's built-in user model
 
 Installation
 Clone the repository to your local machine:
-git clone https://github.com/yourusername/django-user-management.git
+[git clone https://github.com/yourusername/django-user-management.git](https://github.com/karkandenilesh/Catalyst-Count.git)
 
 
 Install the required dependencies:
