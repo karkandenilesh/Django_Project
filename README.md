@@ -1,29 +1,33 @@
-Catalyst Count Web Application
-This is a Django project for mass uplod csv data, display filtered data count fetch by api, authentication using AllAuth...
+Django Catalyst Count
+This is a Django web application developed for managing organizations and users.
+
 
 Features
-Authentication with the help of AllAuth
-chunk upload method of Django csv File Upload.
-Result count should be returned by an API made using Django Rest Framewor
-Add new users via a web form
-Secure authentication system using Django's built-in user model
+-Upload CSV: Allows users to upload CSV files containing organization data.
+-Filter Organizations: Provides a REST API endpoint to filter organizations based on various criteria.
+-User Management: Allows users to view, add, and delete users.
+-Authentication: Includes user authentication using Django's AllAuth library.
+-Responsive Design: Ensures a responsive and user-friendly experience across devices.
 
 
-Installation
-Clone the repository to your local machine:
-[git clone https://github.com/yourusername/django-user-management.git](https://github.com/karkandenilesh/Catalyst-Count.git)
+Setup
+1.Clone the Repository:https://github.com/karkandenilesh/Django_Project.git
+
+2.Install Dependencies:pip install -r requirements.txt
+
+3.Run Migrations:python manage.py migrate
+
+4.python manage.py runserver
 
 
-Install the required dependencies:
-pip install -r requirements.txt
-
-
-Apply database migrations:
-python manage.py migrate
-
+Usage
+Upload CSV: Navigate to the Upload page and upload a CSV file containing organization data.
+Filter Organizations: Use the Filter page to filter organizations based on name, domain, industry, etc.
+User Management: Access the User page to manage users (add, view, delete).
+REST API: The API endpoint for filtering organizations can be accessed at /api/filter-organizations/.
 
 Contributing
-Contributions are welcome! Please feel free to submit pull requests or open issues if you encounter any problems or have suggestions for improvement.
+Contributions are welcome! If you find any bugs or have suggestions for improvement, please open an issue or submit a pull request.
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
